@@ -1,7 +1,9 @@
 package com.rest;
 
+import com.rest.utils.TestUtils;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -10,7 +12,13 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 
 public class AutomateHeaders {
-    private static final String baseUri = "https://2ad9deb5-4ee8-4ac0-8e87-6fc342fa92ed.mock.pstmn.io";
+    private static String baseUri;
+
+    @BeforeClass
+    public void beforeClass() throws Exception {
+        TestUtils testUtils = new TestUtils();
+        baseUri = testUtils.getString("mockBaseUri");
+    }
 
     @Test
     public void multiple_headers(){

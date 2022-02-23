@@ -1,8 +1,10 @@
 package com.rest;
 
+import com.rest.utils.TestUtils;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -13,7 +15,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class AutomateGet {
-    private static final String apiKey = "PMAK-6214485830838164fab816cf-5b880c9e18cd341c46697cc9a5b9273f02";
+    private static String apiKey;
+
+    @BeforeClass
+    public void beforeClass() throws Exception {
+        TestUtils testUtils = new TestUtils();
+        apiKey = testUtils.getString("apiKey");
+    }
 
     @Test
     public void validate_status_code(){

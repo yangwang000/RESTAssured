@@ -45,4 +45,16 @@ public class Filters {
                 assertThat().
                 statusCode(200);
     }
+
+    @Test
+    public void loggingFilterClass() throws FileNotFoundException {
+        given(requestSpecification).
+                baseUri("https://postman-echo.com").
+                filter(new RequestLoggingFilter(LogDetail.HEADERS)).filter(new ResponseLoggingFilter(LogDetail.STATUS)).
+                when().
+                get("/get").
+                then().spec(responseSpecification).
+                assertThat().
+                statusCode(200);
+    }
 }

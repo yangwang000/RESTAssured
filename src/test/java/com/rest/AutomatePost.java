@@ -1,5 +1,6 @@
 package com.rest;
 
+import com.rest.utils.TestUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -21,10 +22,11 @@ import static org.hamcrest.Matchers.matchesPattern;
 public class AutomatePost {
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() throws Exception {
+        TestUtils testUtils = new TestUtils();
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder().
                 setBaseUri("https://api.postman.com").
-                addHeader("X-Api-Key", "PMAK-5ff2d720d2a39a004250e5da-c658c4a8a1cee3516762cb1a51cba6c5e2").
+                addHeader("X-Api-Key", testUtils.getString("apiKey")).
                 setContentType(ContentType.JSON).
                 log(LogDetail.ALL);
         RestAssured.requestSpecification = requestSpecBuilder.build();

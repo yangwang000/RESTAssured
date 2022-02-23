@@ -13,7 +13,7 @@ public class UploadFile {
         String attributes = "{\"name\":\"temp.txt\",\"parent\":{\"id\":\"123456\"}}";
         given().
                 baseUri("https://postman-echo.com").
-                multiPart("file", new File("temp.txt")).
+                multiPart("file", new File("README.md")).
                 multiPart("attributes", attributes, "application/json").
                 log().all().
         when().

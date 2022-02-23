@@ -95,8 +95,8 @@ public class RequestParameters {
         given().
                 baseUri("https://postman-echo.com").
                 contentType(ContentType.URLENC).
-    //            config(config().encoderConfig(EncoderConfig.encoderConfig()
-    //                    .appendDefaultContentCharsetToContentTypeIfUndefined(false))).
+                config(config().encoderConfig(EncoderConfig.encoderConfig()
+                        .appendDefaultContentCharsetToContentTypeIfUndefined(false))).
                 formParam("key1", "value1").
                 formParam("key 2", "value 2").
                 log().all().

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="apiKey">PMAK-6214485830838164fab816cf-5b880c9e18cd341c46697cc9a5b9273f02</string>
+    <string name="mockBaseUri">https://2ad9deb5-4ee8-4ac0-8e87-6fc342fa92ed.mock.pstmn.io</string>
+</resources>

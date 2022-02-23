@@ -1,5 +1,6 @@
 package com.rest;
 
+import com.rest.utils.TestUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -15,10 +16,11 @@ import static org.hamcrest.Matchers.matchesPattern;
 public class AutomatePut {
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() throws Exception {
+        TestUtils testUtils = new TestUtils();
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder().
                 setBaseUri("https://api.postman.com").
-                addHeader("X-Api-Key", "PMAK-5ff2d720d2a39a004250e5da-c658c4a8a1cee3516762cb1a51cba6c5e2").
+                addHeader("X-Api-Key", testUtils.getString("apiKey")).
                 setContentType(ContentType.JSON).
                 log(LogDetail.ALL);
         RestAssured.requestSpecification = requestSpecBuilder.build();
@@ -32,7 +34,7 @@ public class AutomatePut {
 
     @Test
     public void validate_put_request_bdd_style(){
-        String workspaceId = "cd8832a4-0778-4683-a2ee-97a3f17d2ee7";
+        String workspaceId = "7449daf0-d65d-4146-8613-a334661faa95";
         String payload = "{\n" +
                 "    \"workspace\": {\n" +
                 "        \"name\": \"newWorkspaceName\",\n" +

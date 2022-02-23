@@ -1,5 +1,6 @@
 package com.rest;
 
+import com.rest.utils.TestUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -20,9 +21,10 @@ public class RequestPayLoadAsJsonArray {
     ResponseSpecification customResponseSpecification;
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() throws Exception {
+        TestUtils testUtils = new TestUtils();
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder().
-                setBaseUri("https://8f6d7436-aba9-4c1f-bc81-fdc881a11fb1.mock.pstmn.io").
+                setBaseUri(testUtils.getString("mockBaseUri")).
                 addHeader("x-mock-match-request-body", "true").
         //        setConfig(config.encoderConfig(EncoderConfig.encoderConfig()
         //                .appendDefaultContentCharsetToContentTypeIfUndefined(false))).
@@ -58,6 +60,6 @@ public class RequestPayLoadAsJsonArray {
                 post("/post").
         then().spec(customResponseSpecification).
                 assertThat().
-                body("msg", equalTo("Success"));
+                body("msg", equalTo("success"));
     }
 }

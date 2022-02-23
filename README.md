@@ -53,3 +53,27 @@ emptyString()
 
 ## HTTP Headers
 https://www.iana.org/assignments/message-headers/message-headers.xhtml
+
+## Reuse request specification 
+#### Default request specification
+```
+RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
+requestSpecBuilder.setBaseUri("https://api.postman.com");
+requestSpecBuilder.addHeader("X-Api-Key", testUtils.getString("apiKey"));
+requestSpecBuilder.log(LogDetail.ALL);
+
+//this static variable will be global and will retain its value throughout the program unless you overwrite/reset it
+RestAssured.requestSpecification = requestSpecBuilder.build();
+```
+#### Query request specification
+```
+QueryableRequestSpecification queryableRequestSpecification = SpecificationQuerier.query(RestAssured.requestSpecification);
+System.out.println(queryableRequestSpecification.getBaseUri());
+System.out.println(queryableRequestSpecification.getHeaders());
+```
+
+#### URL Encoding
+https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding
+
+## Json Schema
+https://www.jsonschema.net

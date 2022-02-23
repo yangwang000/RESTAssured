@@ -2,6 +2,7 @@ package com.rest.pojo.workspace;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ public class Workspace {
     private String id;
     @JsonIgnore
     private HashMap<String, String> myHashMap;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name;
     private String type;
     private String description;

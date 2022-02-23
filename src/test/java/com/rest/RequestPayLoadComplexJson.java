@@ -1,5 +1,6 @@
 package com.rest;
 
+import com.rest.utils.TestUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -20,9 +21,10 @@ public class RequestPayLoadComplexJson {
     ResponseSpecification customResponseSpecification;
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() throws Exception {
+        TestUtils testUtils = new TestUtils();
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder().
-                setBaseUri("https://8f6d7436-aba9-4c1f-bc81-fdc881a11fb1.mock.pstmn.io").
+                setBaseUri(testUtils.getString("mockBaseUri")).
                 addHeader("x-mock-match-request-body", "true").
         //        setConfig(config.encoderConfig(EncoderConfig.encoderConfig()
         //                .appendDefaultContentCharsetToContentTypeIfUndefined(false))).
@@ -42,8 +44,8 @@ public class RequestPayLoadComplexJson {
     public void validate_post_request_payload_complex_json(){
 
         List<Integer> idArrayList = new ArrayList<Integer>();
-        idArrayList.add(5);
-        idArrayList.add(9);
+        idArrayList.add(1);
+        idArrayList.add(2);
 
         HashMap<String, Object> batterHashMap2 = new HashMap<String, Object>();
         batterHashMap2.put("id", idArrayList);
@@ -91,6 +93,6 @@ public class RequestPayLoadComplexJson {
                 post("/postComplexJson").
         then().spec(customResponseSpecification).
                 assertThat().
-                body("msg", equalTo("Success"));
+                body("msg", equalTo("success"));
     }
 }

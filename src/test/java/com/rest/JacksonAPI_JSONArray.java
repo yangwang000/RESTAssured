@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.rest.utils.TestUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.config.EncoderConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.ResponseSpecification;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static io.restassured.RestAssured.config;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -24,12 +27,13 @@ public class JacksonAPI_JSONArray {
     ResponseSpecification customResponseSpecification;
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() throws Exception {
+        TestUtils testUtils = new TestUtils();
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder().
-                setBaseUri("https://8f6d7436-aba9-4c1f-bc81-fdc881a11fb1.mock.pstmn.io").
+                setBaseUri(testUtils.getString("mockBaseUri")).
                 addHeader("x-mock-match-request-body", "true").
-        //        setConfig(config.encoderConfig(EncoderConfig.encoderConfig()
-        //                .appendDefaultContentCharsetToContentTypeIfUndefined(false))).
+//                setConfig(config.encoderConfig(EncoderConfig.encoderConfig()
+//                        .appendDefaultContentCharsetToContentTypeIfUndefined(false))).
                 setContentType("application/json;charset=utf-8").
                 log(LogDetail.ALL);
 
@@ -65,7 +69,7 @@ public class JacksonAPI_JSONArray {
                 post("/post").
         then().spec(customResponseSpecification).
                 assertThat().
-                body("msg", equalTo("Success"));
+                body("msg", equalTo("success"));
     }
 
     @Test
@@ -93,6 +97,6 @@ public class JacksonAPI_JSONArray {
                 post("/post").
                 then().spec(customResponseSpecification).
                 assertThat().
-                body("msg", equalTo("Success"));
+                body("msg", equalTo("success"));
     }
 }

@@ -3,6 +3,7 @@ package com.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rest.pojo.simple.SimplePojo;
+import com.rest.utils.TestUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -20,9 +21,10 @@ public class SimplePojoTest {
     ResponseSpecification responseSpecification;
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() throws Exception {
+        TestUtils testUtils = new TestUtils();
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder().
-                setBaseUri("https://8f6d7436-aba9-4c1f-bc81-fdc881a11fb1.mock.pstmn.io").
+                setBaseUri(testUtils.getString("mockBaseUri")).
                         setContentType(ContentType.JSON).
                         log(LogDetail.ALL);
 
@@ -45,7 +47,7 @@ public class SimplePojoTest {
         SimplePojo deserializedPojo = given().
                 body(simplePojo).
         when().
-                post("/postSimpleJson").
+                post("/postSimplePojo").
         then().spec(responseSpecification).
                 extract().
                 response().
